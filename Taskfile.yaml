@@ -1,0 +1,28 @@
+version: '3'
+
+tasks:
+  default:
+    desc: list all tasks
+    cmds:
+    - task --list --sort none
+  init:
+    desc: install dependencies
+    cmds:
+    - uv sync
+    - uv run pre-commit install
+    - uv run pre-commit autoupdate
+  push:
+    aliases: [p]
+    desc: push to remote
+    cmds:
+    - git push origin main
+  lint:
+    desc: run linter
+    cmds:
+    - uv run ruff check --fix src
+    - uv run ruff format src
+    - uv run ty check src
+  test:
+    desc: run tests
+    cmds:
+    - uv run pytest

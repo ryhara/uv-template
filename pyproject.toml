@@ -1,0 +1,40 @@
+[project]
+name = "uv-template"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = []
+
+[dependency-groups]
+dev = [
+  "pre-commit>=4.2.0",
+  "pytest>=8.4.0",
+  "ruff>=0.11.13",
+  "ty>=0.0.1a9"
+]
+
+[tool.uv.sources]
+torch = [
+  {index = "pytorch-cpu", marker = "sys_platform != 'linux'"},
+  {index = "pytorch-cu121", marker = "sys_platform == 'linux'"}
+]
+
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true
+
+[[tool.uv.index]]
+name = "pytorch-cu121"
+url = "https://download.pytorch.org/whl/cu121"
+explicit = true
+
+[tool.ty.rules]
+unresolved-import = "ignore"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff.lint]
+select = ["I"]
